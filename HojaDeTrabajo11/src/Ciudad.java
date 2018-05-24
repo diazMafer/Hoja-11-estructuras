@@ -10,19 +10,17 @@
  */
 public class Ciudad {
     
-    public String ciudadActual;
-    public String ciudadInicio;
-    public double kilometros;
-    public int IDActual;
-    public int IDInicio;
+    private String ciudadActual;
+    private String ciudadInicio;
+    private double kilometros;
+    private int IDActual;
+    private int IDInicio;
     
-    public Ciudad(String actual, String ciudadFrom, double km, int ID1, int ID2)
+    public Ciudad(String actual, String ciudadFrom, double km)
     {
         ciudadActual = actual;
         ciudadInicio = ciudadFrom;
         kilometros = km;
-        this.IDActual = ID1;
-        this.IDInicio = ID2;
     }
     public double getKm()
     {
@@ -35,14 +33,6 @@ public class Ciudad {
     public String getActual()
     {
         return ciudadActual;
-    }
-    public int getIDInicio()
-    {
-        return IDInicio;
-    }
-    public int getIDActual()
-    {
-        return IDActual;
     }
     
 }
