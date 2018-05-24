@@ -11,39 +11,56 @@ import java.util.ArrayList;
  */
 public class Floyd {
 
-    public int cantNodos;
-    public ArrayList<Ciudad> listaCiudades;
-    public double[][] ponderaciones; //matriz que muestra los menores kilometros para llegar de una ciudad a otra
-    public String[][] recorridos; //matriz que muestra los nombres de las ciudades por las cuales se pasa para llegar de una a otra
+    private int cantNodos;
+    private ArrayList<Ciudad> listaCiudades;
+    private double[][] ponderaciones; //matriz que muestra los menores kilometros para llegar de una ciudad a otra
+    private String[][] recorridos; //matriz que muestra los nombres de las ciudades por las cuales se pasa para llegar de una a otra
     
     public Floyd(int cantNodos)
     {
         this.cantNodos = cantNodos;
         listaCiudades = new ArrayList<>();
         createLinks(cantNodos);
-        makeMatrix();
         
     }
-    /**
-    public void addNodo(Ciudad city)
+    
+    public void addCiudad(Ciudad city)
     {
-        matriz[city.getIDInicio()][city.getIDActual()].addCiudad(city);
-    }**/
+        listaCiudades.add(city);
+        createLinks(listaCiudades.size());
+    }
     
     public void setNodos(int cantidad)
     {
         cantNodos = cantidad;
     }
-    public void getNodo(String ciudadInicio, String ciudadFinal)
+    public double getDistancia(String ciudadInicio, String ciudadFinal)
     {
+        double distanciaMinima = 0.0;
         for (int i=0; i<cantNodos; i++)
         {
-            /**
             for (int j=0; j<cantNodos; j++)
             {
-                if (matriz[i][j].getCiudades())
-            }**/
+                if (ciudadFinal.equals(listaCiudades.get(j).getActual()) && ciudadInicio.equals(listaCiudades.get(i).getInicio()))
+                {
+                    distanciaMinima = ponderaciones[i][j];
+                }
+            }
         }
+        return distanciaMinima;
+    }
+    public ArrayList<String> getRecorrido(String ciudadInicio, String ciudadFinal)
+    {
+        ArrayList<String> recorrido = new ArrayList<>();
+        for (int i=0; i<cantNodos; i++)
+        {
+            for (int j=0; j<cantNodos; j++)
+            {
+                //?? i aint sure anymore
+            }
+        }
+        return recorrido;
+        
     }
     public final void createLinks(int cantNodos)
     {
@@ -88,10 +105,13 @@ public class Floyd {
                 recorridos[i][j] = listaCiudades.get(j).getActual();
             }
         }
+        
+        makeMatrixes();
     }
-    public final void makeMatrix()
+    public final void makeMatrixes()
     {
         double[][] resultado = new double[ponderaciones.length][ponderaciones.length];
+        String[][] recorridoFinal = new String[ponderaciones.length][ponderaciones.length];
         for (int k = 0; k < ponderaciones.length; k++)
         {
             for (int i = 0; i < ponderaciones.length; i++)
@@ -102,10 +122,12 @@ public class Floyd {
                     {
                         ponderaciones[i][j] = ponderaciones[i][k] + ponderaciones[k][j];
                         resultado[i][j] = resultado[i][k];
+                       // recorridoFinal[i][j] = recorridos[i][k];
                     }
                 }
             }
         }
+        recorridos = recorridoFinal;
         ponderaciones = resultado;
     }
     
