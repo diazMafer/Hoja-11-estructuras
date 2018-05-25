@@ -7,6 +7,7 @@ import java.util.ArrayList;
  * @author anahernandez
  * 
  * Algoritmo modelado con: http://aprendiendo2veces.blogspot.com/2011/08/algoritmo-de-floyd.html
+ * y también https://rosettacode.org/wiki/Floyd-Warshall_algorithm#Java
  * 
  */
 public class Floyd {
