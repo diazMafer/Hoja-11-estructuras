@@ -43,7 +43,8 @@ def ruta():
     while ciudadF not in Grafo.nodes():
         print "La ciudad que ingreso no se encuentra en la base de datos"
         ciudadF = raw_input("Indique la ciudad de destino: ")
-        print "La ruta mas corta entre ", ciudadO, " y ", ciudadF, " es pasando por: "
+
+    print "La ruta mas corta entre ", ciudadO, " y ", ciudadF, " es pasando por: "
 
     predecesor = path[0][ciudadO][ciudadF]
     print predecesor
@@ -59,7 +60,7 @@ def ruta():
         Noditos = Edge.split(", ")
         if Noditos[0] or Noditos[1] not in Grafo.nodes():
             alerta = 1
-        while alerta:
+        while alerta!=1:
             print "Las ciudades no existen porfavor vuelva a ingresar en el formato correcto"
             Edge = raw_input(Grafo.edges)
             Noditos = Edge.split(", ")
@@ -67,15 +68,7 @@ def ruta():
         Grafo.remove_edge(Noditos[0],Noditos[1])
         newpath = nx.floyd_warshall_predecessor_and_distance(Grafo, wight="peso")
         print "El nuevo recorrido a tomar es: "
-        cont = 0
-        ciudades = []
-        while cont:
-            predecesor = newpath[0][ciudadO][ciudadF]
-            predecesor1 = predecesor
-            if ciudadO == predecesor:
-                cont = 1
-            else:
-                predecesor = newpath[0][ciudadO][ciudadF]
+        print newpath
 
         print "Ruta en kilometros: "
         print newpath[1][ciudadO][ciudadF]
@@ -103,7 +96,7 @@ def centro():
     Nodos = Grafo.nodes()
     #centro del grafo
     centro = nx.center(Grafo, None, False)
-    print "Centro del grafo: "+",".join(centro)
+    print "Centro del grafo: ", centro
 
 
     
