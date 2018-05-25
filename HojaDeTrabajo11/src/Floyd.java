@@ -1,4 +1,5 @@
 
+import static java.lang.String.format;
 import java.util.ArrayList;
 
 
@@ -16,10 +17,10 @@ public class Floyd {
     private double[][] ponderaciones; //matriz que muestra los menores kilometros para llegar de una ciudad a otra
     private String[][] recorridos; //matriz que muestra los nombres de las ciudades por las cuales se pasa para llegar de una a otra
     
-    public Floyd(int cantNodos)
+    public Floyd(int cantNodos, ArrayList<Ciudad> lista)
     {
         this.cantNodos = cantNodos;
-        listaCiudades = new ArrayList<>();
+        listaCiudades = lista;
         createLinks(cantNodos);
         
     }
@@ -34,6 +35,7 @@ public class Floyd {
     {
         cantNodos = cantidad;
     }
+    
     public double getDistancia(String ciudadInicio, String ciudadFinal)
     {
         double distanciaMinima = 0.0;
@@ -41,14 +43,14 @@ public class Floyd {
         {
             for (int j=0; j<cantNodos; j++)
             {
-                if (ciudadFinal.equals(listaCiudades.get(j).getActual()) && ciudadInicio.equals(listaCiudades.get(i).getInicio()))
+                if (ciudadFinal.equals(listaCiudades.get(j).getNombre()) && ciudadInicio.equals(listaCiudades.get(i).getNombre()))
                 {
                     distanciaMinima = ponderaciones[i][j];
                 }
             }
         }
         return distanciaMinima;
-    }
+    }/**
     public ArrayList<String> getRecorrido(String ciudadInicio, String ciudadFinal)
     {
         ArrayList<String> recorrido = new ArrayList<>();
@@ -56,12 +58,15 @@ public class Floyd {
         {
             for (int j=0; j<cantNodos; j++)
             {
-                //?? i aint sure anymore
+                if (ciudadInicio.equals(listaCiudades.get(i).getActual()) && ciudadFinal.equals(listaCiudades.get(j).getActual()))
+                {
+                    
+                }
             }
         }
         return recorrido;
         
-    }
+    }**/
     public final void createLinks(int cantNodos)
     {
         this.ponderaciones = new double[cantNodos][cantNodos];
@@ -72,7 +77,14 @@ public class Floyd {
         {
             for (int j =0;j<cantNodos; j++)
             {
-                ponderaciones[i][j] = Integer.MAX_VALUE;
+                if (i == j)
+                {
+                    ponderaciones[i][j] = 0;
+                }
+                else
+                {
+                    ponderaciones[i][j] = Double.POSITIVE_INFINITY;
+                }
             }
         }
         
@@ -89,9 +101,16 @@ public class Floyd {
                 {
                     for (Ciudad city: listaCiudades)
                     {
-                        if (city.getActual().equals(listaCiudades.get(j).getActual()) && city.getInicio().equals(listaCiudades.get(i).getInicio()))
+                        for (String destino: city.getDestinos())
                         {
-                            ponderaciones[i][j] = city.getKm();
+                            int indexof = listaCiudades.get(i).getDestinos().indexOf(destino);
+                            if (indexof != -1)
+                            {
+                                if (destino.equals(listaCiudades.get(j).getNombre()) && city.getNombre().equals(listaCiudades.get(i).getNombre()))
+                                {
+                                    ponderaciones[i][j] = city.getKm().get(indexof);
+                                }
+                            }
                         }
                     }
                 }
@@ -102,33 +121,65 @@ public class Floyd {
         {
             for (int j = 0; j<cantNodos; j++)
             {
-                recorridos[i][j] = listaCiudades.get(j).getActual();
+                recorridos[i][j] = listaCiudades.get(j).getNombre();
             }
         }
-        
         makeMatrixes();
     }
     public final void makeMatrixes()
     {
-        double[][] resultado = new double[ponderaciones.length][ponderaciones.length];
-        String[][] recorridoFinal = new String[ponderaciones.length][ponderaciones.length];
         for (int k = 0; k < ponderaciones.length; k++)
         {
             for (int i = 0; i < ponderaciones.length; i++)
             {
                 for (int j = 0; j < ponderaciones.length; j++)
                 {
-                    if ((ponderaciones[i][k] != Integer.MAX_VALUE)&&(ponderaciones[k][j] != Integer.MAX_VALUE)&&(Math.min(ponderaciones[i][j], ponderaciones[i][k] + ponderaciones[k][j]) != ponderaciones[i][j]))
+                    if ((ponderaciones[i][k] != Double.POSITIVE_INFINITY)&&(ponderaciones[k][j] != Double.POSITIVE_INFINITY)&&(Math.min(ponderaciones[i][j], ponderaciones[i][k] + ponderaciones[k][j]) != ponderaciones[i][j]))
                     {
                         ponderaciones[i][j] = ponderaciones[i][k] + ponderaciones[k][j];
-                        resultado[i][j] = resultado[i][k];
-                       // recorridoFinal[i][j] = recorridos[i][k];
+                        recorridos[i][j] = recorridos[i][k];
                     }
                 }
             }
         }
-        recorridos = recorridoFinal;
-        ponderaciones = resultado;
     }
+    public ArrayList<String> getPath(String ciudadInicio, String ciudadDestino)
+    {
+        ArrayList<String> stops = new ArrayList<>();
+        Ciudad ciudad = null;
+        Ciudad ciudadFinal = null;
+        for (Ciudad city: listaCiudades)
+        {
+            if (city.getNombre().equals(ciudadDestino))
+            {
+                ciudadFinal = city;
+            }
+            else if (city.getNombre().equals(ciudadInicio))
+            {
+                ciudad = city;
+            }
+        }
+        int i = listaCiudades.indexOf(ciudad);
+        
+        boolean loop = true; 
+        while (loop)
+        {
+            for (int j= listaCiudades.indexOf(ciudadFinal); j>0; j--)
+            {
+                if (!recorridos[i][j].equals(listaCiudades.get(j).getNombre()))
+                {
+                    stops.add(recorridos[i][j]);
+                    break;
+                }   
+                else
+                {
+                    loop = false;
+                }
+                ciudadDestino = recorridos[i][j];
+            }
+            loop = false;
+        }
+        return stops;
+    }    
     
 }

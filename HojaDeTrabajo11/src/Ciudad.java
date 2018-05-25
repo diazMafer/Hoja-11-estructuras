@@ -1,3 +1,6 @@
+
+import java.util.ArrayList;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -10,29 +13,27 @@
  */
 public class Ciudad {
     
-    private String ciudadActual;
-    private String ciudadInicio;
-    private double kilometros;
-    private int IDActual;
-    private int IDInicio;
+    private String NombreCiudad;
+    private ArrayList<String> destinos;
+    private ArrayList<Double> kilometros;
     
-    public Ciudad(String actual, String ciudadFrom, double km)
+    public Ciudad(String actual, ArrayList<String> destinos, ArrayList<Double> km)
     {
-        ciudadActual = actual;
-        ciudadInicio = ciudadFrom;
+        NombreCiudad = actual;
+        this.destinos = destinos;
         kilometros = km;
     }
-    public double getKm()
+    public ArrayList<Double> getKm()
     {
         return kilometros;
     }
-    public String getInicio()
+    public ArrayList<String> getDestinos()
     {
-        return ciudadInicio;
+        return destinos;
     }
-    public String getActual()
+    public String getNombre()
     {
-        return ciudadActual;
+        return NombreCiudad;
     }
     
 }
