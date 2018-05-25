@@ -54,14 +54,12 @@ public class Main {
                 ArrayList<Double> distancias = new ArrayList<>();
                 distancias.add(distancia);
                 
-                    
-                //System.out.println(ciudadInicio + destino + distancia);
                 ciudad = new Ciudad (ciudadInicio, destinos, distancias);
                 documento.add(ciudad);
                 ciudades.add(ciudadInicio);
                 ciudades.add(destino);
             } 
-            /*********              PARA ASEGURARME QUE SOLO HAYA UNA INSTANCIA DE CADA CIUDAD           **/
+            /*********              PARA ASEGURARME QUE SOLO HAYA UNA INSTANCIA DE CADA CIUDAD             *******/
             int size = ciudades.size();
             ArrayList<String> ciudadesTemp = new ArrayList<>();
             for (String ciudad : ciudades) //que todos los elementos de una esten en la otra
@@ -94,6 +92,31 @@ public class Main {
             }
             
             Floyd algoritmo = new Floyd(listaC.size(), listaC);
+            while (ciclo ==0)
+            {
+            
+                String exit = "";
+                System.out.println("\n ****************\nQué desea hacer? \n\t 1. Encontrar la ruta más corta entre dos ciudades. "
+                        + "\n\t 2. Retirar al siguiente paciente de la lista. \n\t 3. Salir\n ********************");
+
+                String entry = teclado.nextLine();
+                switch (entry)
+                {
+                    case ("1"):
+                        System.out.println("\nIngrese la ciudad de partida: ");
+                        String inicio = teclado.nextLine();
+                        System.out.println("\nIngrese la ciudad de destino: ");
+                        String end = teclado.nextLine();
+                        shortestPath(algoritmo, inicio, end);
+                        break;
+                    case ("2"):
+                        
+                        break;
+                    case "3":
+                        ciclo =1;
+                        break;
+                }
+            }
             
         }
         
@@ -102,11 +125,9 @@ public class Main {
         }
         
     }
-    public void shortestPath(Floyd algoritmo)
+    static public void shortestPath(Floyd algoritmo, String inicio, String end)
     {
-            System.out.println("Ruta más corta: ");
-            String inicio = "ALTA VERAPAZ";
-            String end = "COBAN";
+            System.out.println("\n >>>>>>>\nRuta más corta: ");
             ArrayList<String> paradas = algoritmo.getPath(inicio, end);
             String hilo = inicio +" -> ";
             for (String stop: paradas)
@@ -116,7 +137,7 @@ public class Main {
             hilo +=" "+end;
             System.out.println(hilo);
             System.out.println("Con una distancia de: ");
-            System.out.println(algoritmo.getDistancia(inicio, end));
+            System.out.println(algoritmo.getDistancia(inicio, end) + "\n>>>>>>>");
     }
     
 }

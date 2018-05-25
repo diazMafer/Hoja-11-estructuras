@@ -1,5 +1,4 @@
 
-import static java.lang.String.format;
 import java.util.ArrayList;
 
 
@@ -21,14 +20,14 @@ public class Floyd {
     {
         this.cantNodos = cantNodos;
         listaCiudades = lista;
-        createLinks(cantNodos);
+        makeMatrixes(cantNodos);
         
     }
     
     public void addCiudad(Ciudad city)
     {
         listaCiudades.add(city);
-        createLinks(listaCiudades.size());
+        makeMatrixes(listaCiudades.size());
     }
     
     public void setNodos(int cantidad)
@@ -50,24 +49,8 @@ public class Floyd {
             }
         }
         return distanciaMinima;
-    }/**
-    public ArrayList<String> getRecorrido(String ciudadInicio, String ciudadFinal)
-    {
-        ArrayList<String> recorrido = new ArrayList<>();
-        for (int i=0; i<cantNodos; i++)
-        {
-            for (int j=0; j<cantNodos; j++)
-            {
-                if (ciudadInicio.equals(listaCiudades.get(i).getActual()) && ciudadFinal.equals(listaCiudades.get(j).getActual()))
-                {
-                    
-                }
-            }
-        }
-        return recorrido;
-        
-    }**/
-    public final void createLinks(int cantNodos)
+    }
+    public final void makeMatrixes(int cantNodos)
     {
         this.ponderaciones = new double[cantNodos][cantNodos];
         this.recorridos = new String[cantNodos][cantNodos];
@@ -124,9 +107,9 @@ public class Floyd {
                 recorridos[i][j] = listaCiudades.get(j).getNombre();
             }
         }
-        makeMatrixes();
+        playFloyd();
     }
-    public final void makeMatrixes()
+    public final void playFloyd()
     {
         for (int k = 0; k < ponderaciones.length; k++)
         {
@@ -142,7 +125,12 @@ public class Floyd {
                 }
             }
         }
-    }
+    }/** este metodo es para checkear que si desde la ciudad inicial que ingresó se puede llegar a algún lado 1
+     * 
+    public boolean checkDirections(String ciudadInicio, String ciudadDestino)
+    {
+        
+    }**/
     public ArrayList<String> getPath(String ciudadInicio, String ciudadDestino)
     {
         ArrayList<String> stops = new ArrayList<>();
