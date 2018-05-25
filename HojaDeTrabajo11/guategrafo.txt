@@ -19,6 +19,7 @@ Alta Verapaz, Quetzaltenango, 250.9
 Alta Verapaz, Jalapa, 244.1
 Alta Verapaz, Jutiapa, 307.7
 Alta Verapaz, Peten, 269.3
+Alta Verapaz, Santa Rosa, 100.2
 Santa Rosa, Coban, 291.7
 Santa Rosa, Jalapa, 118.6
 Santa Rosa, Jutiapa, 79.3
@@ -29,4 +30,3 @@ Quetzaltenango, Huehuetenango, 91.6
 Quetzaltenango, Peten, 461.9
 Quetzaltenango, Guatemala, 200.2
 Coban, Guatemala, 82.3
-Alta Verapaz, Guatemala, 99.2
