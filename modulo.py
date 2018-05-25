@@ -22,7 +22,7 @@ for lineas in contenido:
     string = lineas.split(", ")
     Grafo.add_node(string[0])
     Grafo.add_node(string[1])
-    Grafo.add_edge(string[0],string[1],weight=int(string[2]))  #se le agrega un peso el cual sera los kilometros de cada uno 
+    Grafo.add_edge(string[0],string[1],weight=float(string[2]))  #se le agrega un peso el cual sera los kilometros de cada uno 
 
 
 
