@@ -27,8 +27,94 @@ public class FloydTest {
     public static void tearDownClass() {
     }
 
+    /**
+     * Test of addCiudad method, of class Floyd.
+     
+    @Test
+    public void testAddCiudad() {
+        System.out.println("addCiudad");
+        ArrayList<String> destinos = new ArrayList<>();
+        ArrayList<Double> km = new ArrayList<>();
+        km.add(33.3);
+        km.add(52.3);
+        km.add(32.3);
+        destinos.add("Solola");
+        destinos.add("Peten");
+        Ciudad ciudad = new Ciudad("Guatemala", destinos, km);
+        ArrayList<Ciudad> city = new ArrayList<>();
+        city.add(ciudad);
+        Floyd instance = new Floyd(3, city);
+        instance.addCiudad(city);
+    }
+|   */
+    /**
+     * Test of deleteRoute method, of class Floyd.
+     
+    @Test
+    public void testDeleteRoute() {
+        System.out.println("deleteRoute");
+        String ciudadInicio = "Guatemala";
+        String ciudadFinal = "Solola";
+        ArrayList<String> destinos = new ArrayList<>();
+        ArrayList<Double> km = new ArrayList<>();
+        km.add(33.3);
+        km.add(52.3);
+        km.add(32.3);
+        destinos.add("Solola");
+        destinos.add("Peten");
+        Ciudad ciudad = new Ciudad("Guatemala", destinos, km);
+        ArrayList<Ciudad> city = new ArrayList<>();
+        city.add(ciudad);
+        Floyd instance = new Floyd(3, city);
+        instance.deleteRoute(ciudadInicio, ciudadFinal);
+       
+    }
+    */
 
     /**
+     * Test of setNodos method, of class Floyd.
+     
+    @Test
+    public void testSetNodos() {
+        System.out.println("setNodos");
+        int cantidad = 0;
+        Floyd instance = null;
+        instance.setNodos(cantidad);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+    */
+
+    
+
+    /**
+     * Test of makeMatrixes method, of class Floyd.
+     
+    @Test
+    public void testMakeMatrixes() {
+        System.out.println("makeMatrixes");
+        int cantNodos = 0;
+        Floyd instance = null;
+        instance.makeMatrixes(cantNodos);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+    */
+
+    /**
+     * Test of playFloyd method, of class Floyd.
+     
+    @Test
+    public void testPlayFloyd() {
+        System.out.println("playFloyd");
+        Floyd instance = null;
+        instance.playFloyd();
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+    */
+
+   /**
      * Test of getDistancia method, of class Floyd.
      */
     @Test
@@ -128,5 +214,8 @@ public class FloydTest {
         int result = instance.searchList("Guatemala");
         assertEquals(expResult, result);
     }
+
+
+    
     
 }
