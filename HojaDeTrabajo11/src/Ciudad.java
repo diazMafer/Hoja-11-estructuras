@@ -35,5 +35,13 @@ public class Ciudad {
     {
         return NombreCiudad;
     }
-    
+    @Override
+    public String toString()
+    {
+        return NombreCiudad;
+    }
+    public void setKm(int index)
+    {
+        kilometros.set(index, Double.POSITIVE_INFINITY);
+    }   
 }

@@ -25,10 +25,26 @@ public class Floyd {
         
     }
     
-    public void addCiudad(Ciudad city)
+    public void addCiudad(ArrayList<Ciudad> ciudades)
     {
-        listaCiudades.add(city);
-        makeMatrixes(listaCiudades.size());
+        listaCiudades = ciudades;
+        cantNodos ++;
+        makeMatrixes(cantNodos);
+    }
+    public void deleteRoute(String ciudadInicio, String ciudadFinal)
+    {
+        for (Ciudad ciudad : listaCiudades)
+        {
+            for (String destino : ciudad.getDestinos())
+            {
+                if (ciudad.getNombre().equals(ciudadInicio) && destino.equals(ciudadFinal))
+                {
+                    int index = ciudad.getDestinos().indexOf(destino);
+                    ciudad.setKm(index);
+                }
+            }
+        }
+        makeMatrixes(cantNodos);
     }
     
     public void setNodos(int cantidad)
@@ -126,12 +142,25 @@ public class Floyd {
                 }
             }
         }
-    }/** este metodo es para checkear que si desde la ciudad inicial que ingresó se puede llegar a algún lado 1
-     * 
+    }
     public boolean checkDirections(String ciudadInicio, String ciudadDestino)
     {
-        
-    }**/
+        boolean hayCamino = true;
+        for (int i=0; i<cantNodos; i++)
+        {
+            for (int j=0; j<cantNodos; j++)
+            {
+                if (ciudadDestino.equals(listaCiudades.get(j).getNombre()) && ciudadInicio.equals(listaCiudades.get(i).getNombre()))
+                {
+                    if (ponderaciones[i][j] == Double.POSITIVE_INFINITY)
+                    {
+                        hayCamino = false;
+                    }
+                }
+            }
+        }
+        return hayCamino;
+    }
     public ArrayList<String> getPath(String ciudadInicio, String ciudadDestino)
     {
         ArrayList<String> stops = new ArrayList<>();
@@ -149,27 +178,41 @@ public class Floyd {
             }
         }
         int i = listaCiudades.indexOf(ciudad);
-        
+        int contador =0;
         boolean loop = true; 
-        while (loop)
+        for (int j = listaCiudades.indexOf(ciudadFinal); j>0; j--)
         {
-            for (int j= listaCiudades.indexOf(ciudadFinal); j>0; j--)
+            if (!recorridos[i][j].equals(ciudadDestino))
             {
-                if (!recorridos[i][j].equals(listaCiudades.get(j).getNombre()))
-                {
-                    stops.add(recorridos[i][j]);
-                    break;
-                }   
-                else
-                {
-                    loop = false;
-                }
+                stops.add(recorridos[i][j]);
                 ciudadDestino = recorridos[i][j];
+                j = searchList(ciudadDestino);
+                if (stops.size() > 5)
+                {
+                    break;
+                }
+            }   
+            else
+            {
+                break;
             }
-            loop = false;
         }
         return stops;
     }    
+    public int searchList(String nombreCiudad)
+    {
+        Ciudad ciudad = null;
+        int indexof =0;
+        for (Ciudad city: listaCiudades)
+        {
+            if (city.getNombre().equals(nombreCiudad))
+            {
+                ciudad = city;
+            }
+        }
+        indexof = listaCiudades.indexOf(ciudad);
+        return indexof;
+    }
     
    
     
