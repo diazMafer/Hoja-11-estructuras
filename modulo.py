@@ -42,54 +42,81 @@ def ruta():
         print "La ciudad que ingreso no se encuentra en la base de datos"
         ciudadF = raw_input("Indique la ciudad de destino: ")
 
-    print "La ruta mas corta entre ", ciudadO, " y ", ciudadF, " es pasando por: "
+    
 
-    predecesor1 = path[0][ciudadO][ciudadF]
-    ciudades = []
-    ciudades.append(predecesor1)
-    #print predecesor1
-    cont = 0
-    if predecesor1!=ciudadO:
-        while cont == 0:
-            predecesor = path[0][ciudadO][predecesor1]
-            ciudades.append(predecesor)
-            predecesor1 = predecesor
-            if predecesor1 == ciudadO:
-                cont = 1
-            else:
+    try:
+        predecesor1 = path[0][ciudadO][ciudadF]
+        ciudades = []
+        ciudades.append(predecesor1)
+        #print predecesor1
+        cont = 0
+        if predecesor1!=ciudadO:
+            while cont == 0:
+                predecesor = path[0][ciudadO][predecesor1]
+                ciudades.append(predecesor)
                 predecesor1 = predecesor
-                #print predecesor1
+                if predecesor1 == ciudadO:
+                    cont = 1
+                else:
+                    predecesor1 = predecesor
+                    #print predecesor1
 
-    imprimir = []
-    for i in ciudades:
-        if ciudadO!=i:
-            imprimir.append(i)
+        imprimir = []
+        for i in reversed(ciudades):
+            if ciudadO!=i:
+                imprimir.append(i)
+                
+        print "La ruta mas corta entre ", ciudadO, " y ", ciudadF, " es pasando por: "
+        print ciudadO, "---> "+"---> ".join(imprimir),"--->", ciudadF
 
-    print ciudadO, "---> "+"---> ".join(imprimir),"--->", ciudadF
+        print "La distancia en kilometros es: "
+        print path[1][ciudadO][ciudadF]
 
-    print "La distancia en kilometros es: "
-    print path[1][ciudadO][ciudadF]
-
-    bloqueos = input("¿Hay bloqueos en su ruta?\n1.Si\n2.No")
-
-    if (bloqueos==1):
-        print "Escriba desde donde comienza el bloqueo y hasta donde termina (nombre1, nombre2"
-        Edge = raw_input()
-        Noditos = Edge.split(", ")
-        if Noditos[0] or Noditos[1] not in Grafo.nodes():
-            alerta = 1
-        while alerta!=1:
-            print "Las ciudades no existen porfavor vuelva a ingresar en el formato correcto"
-            Edge = raw_input(Grafo.edges)
+        bloqueos = input("¿Hay bloqueos en su ruta?\n1.Si\n2.No")
+    
+        if (bloqueos==1):
+            print "Escriba desde donde comienza el bloqueo y hasta donde termina (nombre1, nombre2"
+            Edge = raw_input()
             Noditos = Edge.split(", ")
+            if Noditos[0] or Noditos[1] not in Grafo.nodes():
+                alerta = 1
+            while alerta!=1:
+                print "Las ciudades no existen porfavor vuelva a ingresar en el formato correcto"
+                Edge = raw_input(Grafo.edges)
+                Noditos = Edge.split(", ")
 
-        Grafo.remove_edge(Noditos[0],Noditos[1])
-        newpath = nx.floyd_warshall_predecessor_and_distance(Grafo)
-        print "El nuevo recorrido a tomar es: "
-        print ciudadO, "-->", newpath[0][ciudadO][ciudadF],"-->", ciudadF
+            
+            Grafo.remove_edge(Noditos[0],Noditos[1])
+            newpath = nx.floyd_warshall_predecessor_and_distance(Grafo)
+            predecesor1 = newpath[0][ciudadO][ciudadF]
+            ciudades2 = []
+            ciudades2.append(predecesor1)
+            #print predecesor1
+            cont = 0
+            if predecesor1!=ciudadO:
+                while cont == 0:
+                    predecesor = newpath[0][ciudadO][predecesor1]
+                    ciudades2.append(predecesor)
+                    predecesor1 = predecesor
+                    if predecesor1 == ciudadO:
+                        cont = 1
+                    else:
+                        predecesor1 = predecesor
+                        #print predecesor1
 
-        print "Ruta en kilometros: "
-        print newpath[1][ciudadO][ciudadF]
+            imprimir2 = []
+            for i in reversed(ciudades2):
+                if ciudadO!=i:
+                    imprimir2.append(i)
+
+            print ciudadO, "---> "+"---> ".join(imprimir2),"--->", ciudadF
+            print "Ruta en kilometros: "
+            print newpath[1][ciudadO][ciudadF]
+            
+    except KeyError:
+        print "No existen rutas entre esas ciudades"
+    
+
                                 
 def agregar(ciudadA, ciudadB, km):
     archivo = open("guategrafo.txt", "a")

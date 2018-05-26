@@ -36,3 +36,4 @@ Huehuetenango, Xela, 80
 Xela, Coban, 200
 Coban, Guatemala, 150
 Xela, Solola, 20.0
+Jalapa, Solola, 400.5

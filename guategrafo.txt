@@ -39,3 +39,4 @@ Xela, Solola, 20.0
 Solola, Mazatenango, 52.3
 Solola, Quiche, 85.3
 Xela, Quiche, 2.3
+Jutiapa, Solola, 5.2

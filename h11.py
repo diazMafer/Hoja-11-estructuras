@@ -23,17 +23,3 @@ while(opcion!=0):
         agregar(a,b,c)
     opcion = input("1.Calcular la ruta mas corta\n2.Calcular el centro del grafo\n3.Agregar\n0.Salir\n")
 
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
